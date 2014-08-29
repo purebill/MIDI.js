@@ -417,7 +417,7 @@ if (window.AudioContext || window.webkitAudioContext) (function () {
 		source.buffer = audioBuffers[instrument + "" + note];
 		source.connect(ctx.destination);
 		///
-		var gainNode = ctx.createGainNode();
+		var gainNode = ctx.createGain();
 		var value = (velocity / 100) * masterVolume * 2 - 1;
 		gainNode.connect(ctx.destination);
 		gainNode.gain.value = Math.max(-1, value);
