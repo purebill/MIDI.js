@@ -1,3 +1,5 @@
 .DS_Store
 FluidR3_GM.sf2
 /node_modules/
+/nbproject/
+/.idea/
