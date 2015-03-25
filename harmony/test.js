@@ -44,8 +44,8 @@ var chordIntervals = [
     new ChordIntervals([4, 4, 3], "augmented-major7", "CM7/#5"),
     new ChordIntervals([4, 4, 2], "augmented-minor7", "C7#5"),
 
-    new ChordIntervals([4, 3, 2], "major6", "C6"),
-    new ChordIntervals([3, 4, 2], "minor6", "Cm6"),
+    new ChordIntervals([4, 3, 1], "major6", "C6"),
+    new ChordIntervals([3, 4, 1], "minor6", "Cm6"),
 
     new ChordIntervals([4, 3, 4, 3], "major9", "Cmaj9"),
     new ChordIntervals([3, 4, 3, 4], "minor9", "Cm9"),
@@ -90,7 +90,7 @@ function match(chord) {
             midiCodes.map(function (midiCode) {
                 var diff = midiCode - root;
                 return diff < 0
-                    ? (diff % 12 + 12) % 12
+                    ? diff + Math.ceil(Math.abs(diff)/12)*12
                     : diff % 12;
             })
             .sort(function (a, b) { return a - b; })
@@ -112,6 +112,8 @@ function match(chord) {
         permutations.forEach(function (permutation, i) {
             if (arraysEqual(positions, permutation)) {
                 matches.push(chordIntervals.nameFor(chord.notes[i].midiCode));
+                //console.debug("chordIntervals.intervals", chordIntervals.intervals);
+                //console.debug("matching permutations, positions", permutation, positions);
                 //console.debug(chord.notes[i]);
                 //console.debug(chordIntervals.nameFor(chord.notes[i].midiCode));
             }
@@ -123,16 +125,16 @@ function match(chord) {
 
 var scale = Scale.diatonic(Note.fromString("A"), 5);
 scale.notes.forEach(function (note) {
-    console.debug(note.toString(), match(Chord.make3(note, scale)));
+    console.debug(note.toString(), match(Chord.make4(note, scale)));
 });
 
 var chord = new Chord([
-    //new Note(tuning.midiCodeAt(0, 0)),
-    new Note(tuning.midiCodeAt(1, 2)),
+    new Note(tuning.midiCodeAt(0, 2)),
+    new Note(tuning.midiCodeAt(1, 4)),
     new Note(tuning.midiCodeAt(2, 3)),
-    new Note(tuning.midiCodeAt(3, 2)),
-    //new Note(tuning.midiCodeAt(4, 4)),
-    new Note(tuning.midiCodeAt(5, 2))
+    //new Note(tuning.midiCodeAt(3, 2)),
+    new Note(tuning.midiCodeAt(4, 3)),
+    //new Note(tuning.midiCodeAt(5, 2))
 ]);
 console.debug(chord.toString(), match(chord));
 //console.debug(chord.transpose(2).toString(), match(chord.transpose(2)));
