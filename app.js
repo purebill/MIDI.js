@@ -95,6 +95,7 @@ function main() {
         var notes = randomChoose([
             [randomChoose(scale.notes).transpose(24).d(1/3), randomChoose(scale.notes).transpose(24).d(1/3), randomChoose(scale.notes).transpose(24).d(1/3)],
             [randomChoose(scale.notes).transpose(24).d(1/2), randomChoose(scale.notes).transpose(24).d(1/2)],
+            [randomChoose(scale.notes).transpose(24).d(1/2 + 1/4), randomChoose(scale.notes).transpose(24).d(1/4)],
             [randomChoose(scale.notes).transpose(24).d(1)]
         ]);
         
